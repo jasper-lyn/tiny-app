@@ -6,7 +6,10 @@
 <body>
     <!-- Add your EJS code here -->
   <header>
-    <h1>Short URL: <%= shortURL %></h1>
+    <h1>
+      Short URL: <%= shortURL %>
+    </h1>
+      <p>Signed in as <%= username %></p>
   </header>
     <form method="POST" action="/urls/<%= shortURL %>/update">
       New URL:
