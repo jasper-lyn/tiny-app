@@ -10,9 +10,9 @@
   </header>
     <ul>
       <% for(url in urls) { %>
-        <li><%= url %> : <%= urls[url] %></li>
+        <li><%= url %> : <%= urls[url] %><form method="POST" action="/urls/<%= url %>/delete"><input type="submit" value="Delete"></input></form></li>
       <% }; %>
-        <li><a href="">shortened New Link</a> : <a href="">New Link</a></li>
+        <li><a href="/urls/new">Shorten New Link</a></li>
     </ul>
 </body>
 </html>
