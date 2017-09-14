@@ -4,7 +4,6 @@
   <title>TinyApp</title>
 </head>
 <body>
-    <!-- Add your EJS code here -->
   <header>
   <% include ./partials/_header %>
   </header>
@@ -14,7 +13,8 @@
           <a href="/urls/<%= url %>">Edit</a>
           <form method="POST" action="/urls/<%= url %>/delete">
             <input type="submit" value="Delete">
-          </form></li>
+          </form>
+        </li>
       <% }; %>
         <li><a href="/urls/new">Shorten New Link</a></li>
     </ul>
