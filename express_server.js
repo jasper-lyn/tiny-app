@@ -42,7 +42,7 @@ app.get("/urls/:id", (req, res) => {
 app.post("/urls", (req, res) => {
   let shortURL = generateRandomString();
   urlDatabase[shortURL] = req.body.longURL;
-  res.redirect('/urls/' + shortURL);
+  res.redirect("/urls/" + shortURL);
 });
 
 app.get("/u/:shortURL", (req, res) => {
@@ -54,19 +54,26 @@ app.get("/u/:shortURL", (req, res) => {
 
 app.post("/urls/:id/delete", (req, res) => {
   console.log(delete urlDatabase[req.params.id]);
-  res.redirect('/urls');
+  res.redirect("/urls");
 });
 
 app.post("/urls/:id/update", (req, res) => {
   let id = req.params.id;
   urlDatabase[id] = req.body.longURL;
-  res.redirect('/urls');
+  res.redirect("/urls");
 });
 
 app.post("/login", (req, res) => {
   let input = req.body.username;
   res.cookie("username", input);
-  res.redirect('/urls');
+  res.redirect("/urls");
+});
+
+app.post("/logout", (req, res) => {
+  let cookie = req.body.username;
+  res.cookie("username", cookie);
+  res.clearCookie("username");
+  res.redirect("/urls");
 });
 
 app.listen(PORT, () => {
