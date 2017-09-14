@@ -41,6 +41,16 @@ const getUser = (userId) => {
   return users[userId] ? users[userId] : {email: null}
 };
 
+
+function findUserByEmail(email) {
+  for (userId in users) {
+    let user = users[userId];
+    if(user.email === email) {
+      return user;
+    }
+  }
+};
+
 app.get("/urls", (req, res) => {
   let templateVars = { urls: urlDatabase, username: getUser(req.cookies['user_id']).email };
   res.render("urls_index", templateVars);
@@ -100,11 +110,18 @@ app.get("/register", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  let userRandomID = generateRandomString();
-  users[userRandomID] = {id: userRandomID, email: req.body.email, password: req.body.password}
-  res.cookie("user_id", userRandomID);
-  res.redirect("/urls");
+    if (!req.body.email || !req.body.password) {
+      res.status(400).send("Please input an email and a password.")
+    } else if (findUserByEmail(req.body.email)) {
+      res.status(400).send("Email has already been used.");
+    } else {
+      let userRandomID = generateRandomString();
+      users[userRandomID] = {id: userRandomID, email: req.body.email, password: req.body.password}
+      res.cookie("user_id", userRandomID);
+      res.redirect("/urls");
+    }
 });
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
