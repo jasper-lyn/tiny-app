@@ -1,17 +1,11 @@
-<header>
-  <h1>Shortened URLs</h1>
-  <% if (!user) { %>
-    <h1>Login</h1>
-    <form action="/login" method="POST" style="margin:150px;">
-      <input id="email" type="text" name="email" placeholder="Email" style="width: 200px">
-      <input type="submit" value="Sign In">
-    </form>
-  <% } else { %>
-    <h1>
-      Signed in as <%= user.email %>
-      <form action="/logout" method="POST" style="margin:150px;">
-        <input type="submit" value="Sign Out">
-      </form>
-    </h1>
-  <% } %>
-</header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TinyApp</title>
+</head>
+<body>
+  <header>
+    <h1>Shortened URLs</h1>
+  </header>
+</body>
+</html>

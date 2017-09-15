@@ -59,6 +59,17 @@ function getUser(cookieID) {
   }
 };
 
+app.get("/login", (req, res) => {
+  let user = getUser(req.cookies["user_id"]);
+  res.render("urls_login.ejs", {user: user});
+});
+
+app.post("/login", (req, res) => {
+  let input = req.body.username;
+  res.cookie("user_id", input);
+  res.redirect("/urls");
+});
+
 app.get("/urls", (req, res) => {
   let templateVars = { urls: urlDatabase, user: getUser(req.cookies["user_id"]) };
   res.render("urls_index", templateVars);
@@ -100,12 +111,6 @@ app.post("/urls/:id/delete", (req, res) => {
 app.post("/urls/:id/update", (req, res) => {
   let id = req.params.id;
   urlDatabase[id] = req.body.longURL;
-  res.redirect("/urls");
-});
-
-app.post("/login", (req, res) => {
-  let input = req.body.username;
-  res.cookie("user_id", input);
   res.redirect("/urls");
 });
 
