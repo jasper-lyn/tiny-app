@@ -6,14 +6,18 @@
 <body>
   <header>
       <% include ./partials/_header %>
+  </header>
+    <% if (!user) { %>
+      <a href="/login">Login</a>
+    <% } else { %>
       <h1>
         Short URL: <%= shortURL %>
       </h1>
-  </header>
-    <form method="POST" action="/urls/<%= shortURL %>/update">
-      New URL:
-      <input type="text" name="longURL" value=<%= longURL %>>
-      <input type="submit" value="Update">
-    </form>
+      <form method="POST" action="/urls/<%= shortURL %>/update">
+        New URL:
+        <input type="text" name="longURL" value=<%= longURL.longURL %>>
+        <input type="submit" value="Update">
+      </form>
+    <% } %>
 </body>
 </html>
