@@ -52,11 +52,24 @@ function findUserByEmail(email) {
 
 function getUser(cookieID) {
   // cookieID = req.cookies["user_id"]
-  if (cookieID === users[cookieID]) {
-    return users[cookieID]
-  } else {
-    return null
+    return users[cookieID];
+};
+
+function verifyEmail(email) {
+  for (let randomID in users) {
+    console.log(users[randomID].email)
+    console.log(email)
+    if (users[randomID].email === email) {
+      return randomID;
+    }
   }
+  return false;
+};
+
+function verifyPassword(user_id, password) {
+    console.log(users[user_id].password)
+    console.log(password)
+    return (users[user_id].password === password)
 };
 
 app.get("/login", (req, res) => {
@@ -65,8 +78,18 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  let input = req.body.username;
-  res.cookie("user_id", input);
+  let user_id = verifyEmail(req.body.email);
+  console.log(req.body)
+  if (user_id && verifyPassword(user_id, req.body.password)) {
+    res.cookie("user_id", user_id);
+    res.redirect("/urls");
+  } else {
+    res.status(403).send("Email or password is incorrect.");
+  }
+});
+
+app.post("/logout", (req, res) => {
+  res.clearCookie("user_id");
   res.redirect("/urls");
 });
 
@@ -111,11 +134,6 @@ app.post("/urls/:id/delete", (req, res) => {
 app.post("/urls/:id/update", (req, res) => {
   let id = req.params.id;
   urlDatabase[id] = req.body.longURL;
-  res.redirect("/urls");
-});
-
-app.post("/logout", (req, res) => {
-  res.clearCookie("user_id");
   res.redirect("/urls");
 });
 

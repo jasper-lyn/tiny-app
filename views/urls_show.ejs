@@ -5,10 +5,10 @@
 </head>
 <body>
   <header>
-    <h1>
-      Short URL: <%= shortURL %>
-    </h1>
       <% include ./partials/_header %>
+      <h1>
+        Short URL: <%= shortURL %>
+      </h1>
   </header>
     <form method="POST" action="/urls/<%= shortURL %>/update">
       New URL:

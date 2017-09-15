@@ -7,7 +7,16 @@
   <header>
     <h1>Shortened URLs</h1>
   </header>
-  <a href="/urls/register">Register</a>
-  <a href="/urls/login">Login</a>
+    <% if (!user) { %>
+      <a href="/register">Register</a>
+      <a href="/login">Login</a>
+    <% } else { %>
+      <h1>
+        Signed in as <%= user.email %>
+        <form action="/logout" method="POST" style="margin:150px;">
+          <input type="submit" value="Sign Out">
+        </form>
+      </h1>
+    <% } %>
 </body>
 </html>
